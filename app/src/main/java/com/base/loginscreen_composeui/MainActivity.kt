@@ -15,6 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LoginScreen_ComposeUITheme {
+                LoginScreen()
             }
         }
     }

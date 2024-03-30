@@ -1,6 +1,7 @@
 package com.example.composeloginscreeninit.ui.theme
 
 import android.app.Activity
+import android.app.StatusBarManager
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +33,7 @@ fun  LoginScreen_ComposeUITheme(
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
+
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -53,7 +55,6 @@ fun  LoginScreen_ComposeUITheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
         content = content
     )
 }
