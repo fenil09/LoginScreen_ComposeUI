@@ -1,20 +1,25 @@
 package com.base.loginscreen_composeui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.composeloginscreeninit.ui.theme.Black
+import com.example.composeloginscreeninit.ui.theme.BlueGray
+import com.example.composeloginscreeninit.ui.theme.focusedTextFieldText
+import com.example.composeloginscreeninit.ui.theme.unfocusedTextFieldText
 
 
 @Composable
@@ -23,6 +28,14 @@ fun LoginScreen(){
      Surface (modifier= Modifier.fillMaxSize()){
           Column(modifier=Modifier.fillMaxSize()){
                TopSection()
+               Spacer(modifier = Modifier.height(36.dp))
+               Column(modifier = Modifier.fillMaxSize().padding(horizontal = 30.dp)){
+                LoginTextFields(modifier = Modifier.fillMaxWidth(),"Email")
+                 Spacer(modifier=Modifier.height(25.dp))
+                 LoginTextFields(modifier = Modifier.fillMaxWidth(),"Password")
+                    Spacer(modifier=Modifier.height(30.dp))
+                    LoginButton()
+               }
           }
 
      }
@@ -76,6 +89,52 @@ fun TopSection(){
                fontWeight = FontWeight.Bold,
                fontSize = 25.sp,
                color=uicolor
+          )
+     }
+}
+
+@SuppressLint("SuspiciousIndentation")
+@Composable
+fun LoginTextFields(
+     modifier: Modifier=Modifier,
+     label:String
+
+){
+   val uicolor:Color=if(isSystemInDarkTheme()) Color.White else Color.Black
+
+      TextField(
+           modifier=modifier,
+           value="",
+           onValueChange = {},
+           label={
+                Text(text=label, fontWeight = FontWeight.Bold,color=uicolor)
+           },
+           colors=TextFieldDefaults.colors(
+                unfocusedPlaceholderColor = MaterialTheme.colorScheme.unfocusedTextFieldText,
+                focusedPlaceholderColor = MaterialTheme.colorScheme.focusedTextFieldText,
+           )
+      )
+}
+
+
+@Composable
+fun LoginButton(){
+
+     Button(
+          modifier=Modifier.fillMaxWidth()
+               .height(40.dp),
+          onClick = {},
+          colors = ButtonDefaults.buttonColors(
+               containerColor = if(isSystemInDarkTheme()) BlueGray else Black,
+               contentColor = Color.White
+          ),
+          shape= RoundedCornerShape(4.dp)
+     ){
+          Text(
+               text="Log In",
+               fontStyle = FontStyle.Italic,
+               fontSize = 18.sp,
+               fontWeight = FontWeight.Bold
           )
      }
 }
