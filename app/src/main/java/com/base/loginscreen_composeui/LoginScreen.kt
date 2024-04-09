@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -19,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composeloginscreeninit.ui.theme.*
@@ -34,7 +39,9 @@ fun LoginScreen(){
           Column(modifier=Modifier.fillMaxSize()){
                TopSection()
                Spacer(modifier = Modifier.height(36.dp))
-               Column(modifier = Modifier.fillMaxSize().padding(horizontal = 30.dp)){
+               Column(modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 30.dp)){
                 LoginTextFields(modifier = Modifier.fillMaxWidth(),"Email")
                  Spacer(modifier=Modifier.height(25.dp))
                  LoginTextFields(modifier = Modifier.fillMaxWidth(),"Password")
@@ -74,7 +81,8 @@ fun TopSection(){
                      painter= painterResource(R.drawable.shape_night),
                      contentDescription = null,
                      contentScale = ContentScale.FillBounds,
-                     modifier = Modifier.fillMaxWidth()
+                     modifier = Modifier
+                          .fillMaxWidth()
                           .fillMaxHeight(fraction = 0.46f)
                 )
            }
@@ -83,12 +91,15 @@ fun TopSection(){
                      painter= painterResource(R.drawable.shape),
                      contentDescription = null,
                      contentScale = ContentScale.FillBounds,
-                     modifier = Modifier.fillMaxWidth()
+                     modifier = Modifier
+                          .fillMaxWidth()
                           .fillMaxHeight(fraction = 0.46f)
                 )
           }
 
-          Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(50.dp), horizontalArrangement = Arrangement.Center){
+
+          Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(50.dp), horizontalArrangement = Arrangement.Center,){
+               Spacer(modifier = Modifier.height(100.dp))
                Icon(
                     painter = painterResource(R.drawable.logo),
                     tint = uicolor,
@@ -134,11 +145,11 @@ fun LoginTextFields(
 
 ){
    val uicolor:Color=if(isSystemInDarkTheme()) Color.White else Color.Black
-
+      var textdata by remember { mutableStateOf(TextFieldValue().text)}
       TextField(
            modifier=modifier,
-           value="",
-           onValueChange = {},
+           value= textdata,
+           onValueChange = { newvalue -> textdata=newvalue},
            label={
                 Text(text=label, fontWeight = FontWeight.Bold,color=uicolor)
            },
@@ -154,7 +165,8 @@ fun LoginTextFields(
 fun LoginButton(){
 
      Button(
-          modifier=Modifier.fillMaxWidth()
+          modifier= Modifier
+               .fillMaxWidth()
                .height(40.dp),
           onClick = {},
           colors = ButtonDefaults.buttonColors(
@@ -185,7 +197,8 @@ fun SocialMediaLogin(
 
       Row(verticalAlignment = Alignment.CenterVertically,
            horizontalArrangement = Arrangement.Center,
-            modifier=modifier.clip(RoundedCornerShape(4.dp))
+            modifier= modifier
+                 .clip(RoundedCornerShape(4.dp))
                  .socialmedia()
                  .clickable { onClick() }
                  .height(40.dp)
@@ -193,8 +206,9 @@ fun SocialMediaLogin(
           Image(
                painter = painterResource(id=image),
                contentDescription = null,
-               modifier=modifier.size(25.dp)
-                    .padding(start=20.dp)
+               modifier= modifier
+                    .size(25.dp)
+                    .padding(start = 20.dp)
           )
            Spacer(modifier=modifier.width(5.dp))
            Text(text=text, fontStyle = FontStyle.Italic, fontWeight = FontWeight.Bold, color = uicolor, modifier=Modifier.padding(end=20.dp))
